@@ -252,14 +252,14 @@ bool printSMBIOS(
 
 int main(int argc, char ** argv)
 {
-    if (argc != 2) return 1;
-
     std::vector<uint8_t> buffer;
     #ifdef _WIN32
     if (!getDMI(buffer)) return 1;
     #else
-    if (argc != 2) return 1;
-    if (!getDMI(argv[1], buffer)) return 1;
+    std::string sysfs_dmi_path = "/sys/firmware/dmi/tables";
+    if (argc == 2)
+        sysfs_dmi_path = argv[1];
+    if (!getDMI(sysfs_dmi_path, buffer)) return 1;
     #endif
     smbios::Parser parser(&buffer.front(), buffer.size());
     printSMBIOS(parser, std::cout);
