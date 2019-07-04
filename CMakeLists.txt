@@ -2,6 +2,8 @@ project(dnsblocker)
 
 cmake_minimum_required(VERSION 2.8)
 
+SET(CMAKE_CXX_FLAGS "-Wall -std=gnu++0x")
+
 add_library(smbios_static STATIC "smbios.cc")
 target_include_directories(smbios_static
     PUBLIC "include")
